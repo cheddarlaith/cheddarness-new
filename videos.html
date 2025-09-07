@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Videos — Cheddarness</title>
+  <meta name="description" content="Cheddarness videos" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Kimura font -->
+  <link rel="preload" href="fonts/Kimura.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "Kimura";
+      src: url("fonts/Kimura.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    :root{
+      --brand: rgb(0,95,247);
+    }
+
+    body{
+      margin:0;
+      background:#000;
+      color:#fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Header */
+    .site-header{
+      position: sticky; top:0; z-index:10;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.9rem 1.2rem;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .brand-text{
+      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight:900; letter-spacing:.02em; text-decoration:none; color:#fff;
+      font-size:1.25rem;
+    }
+    .site-nav ul{ list-style:none; display:flex; gap:1rem; margin:0; padding:0; }
+    .site-nav a{ color:#fff; text-decoration:none; opacity:.9; }
+    .site-nav a[aria-current="page"]{ color:var(--brand); opacity:1; }
+    .nav-toggle{ display:none; }
+    @media (max-width:760px){
+      .site-nav ul{ gap:.75rem; font-size:.95rem; flex-wrap:wrap; justify-content:flex-end; }
+    }
+
+    /* Page container */
+    .videos{
+      padding-top: calc(var(--header-h, 64px) + 2.5rem);
+      padding-bottom: 3.5rem;
+      width: min(1000px, 94vw);
+      margin: 0 auto;
+    }
+
+    /* Page title with sheen effect */
+    .page-title{
+      text-align:center;
+      margin:0 0 2rem;
+      letter-spacing:.02em;
+      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight:800;
+      font-size: clamp(2.2rem, 6vw, 3rem);
+      background: linear-gradient(90deg, #ffffff 0%, var(--brand) 35%, #ffffff 70%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: sheen 4s linear infinite;
+    }
+    @keyframes sheen{
+      0%{ background-position: 0% 50%; }
+      100%{ background-position: 200% 50%; }
+    }
+
+    /* Video titles (plain, no sheen) */
+    .video-title{
+      margin: 0 0 .6rem;
+      text-align:center;
+      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight:700;
+      font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+      color:#f2f2f2;
+    }
+
+    /* Video embed */
+    .video-embed{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.10);
+      background:#111;
+      margin-bottom: 2.2rem;
+    }
+    .video-embed iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    /* Footer */
+    .site-footer{
+      width: min(1200px, 94vw);
+      margin: 2rem auto 0;
+      padding: 1.5rem 0 3rem;
+      color:#aaa; font-size:.95rem; text-align:center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="brand-text" aria-label="Cheddarness home">Cheddarness</a>
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+      <ul>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html" aria-current="page">Videos</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <main class="videos" id="videos">
+    <h1 class="page-title">Videos</h1>
+
+  <!-- 1 -->
+<h2 class="video-title">Trance Set - 2024:</h2>
+<div class="video-embed">
+  <iframe src="https://www.youtube.com/embed/QMZrkC-cOJY?start=1836"
+    title="Trance Set - 2024"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen></iframe>
+</div>
+
+    <!-- 2 -->
+    <h2 class="video-title">Elbivole-XXL Music Video</h2>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/69ycPr_U3h0"
+        title="Elbivole-XXL Music Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+
+    <!-- 3 -->
+  <h2 class="video-title">Deltopia 2023:</h2>
+  <div class="video-embed">
+    <iframe src="https://www.youtube.com/embed/yp2EG7TnvXY?start=1"
+      title="Deltopia 2023"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+    </div> 
+
+    <!-- 4 -->
+    <h2 class="video-title">Say Something</h2>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/RkJGgXXRDDM"
+        title="Say Something"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>&copy; <span id="year"></span> Cheddarness</p>
+  </footer>
+
+  <script>
+    // footer year
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
