@@ -7,7 +7,7 @@
   <meta name="description" content="Cheddarness — enter site" />
 
   <!-- Preload poster -->
-  <link rel="preload" href="assets/hero-poster.png" as="image" />
+  <link rel="preload" href="hero-poster.png" as="image" />
   <!-- Preload Kimura font (optional, if you have it) -->
   <link rel="preload" href="Kimura.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -15,7 +15,7 @@
     /* Custom font */
     @font-face {
       font-family: "Kimura";
-      src: url("fonts/Kimura.woff2") format("woff2");
+      src: url("Kimura.woff2") format("woff2");
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -135,8 +135,8 @@
 <body>
   <main class="stage" role="main">
     <video class="bg-video" autoplay muted loop playsinline poster="assets/hero-poster.png">
-      <source src="assets/hero.mp4" type="video/mp4" />
-      <img src="assets/hero-poster.png" alt="Background" />
+      <source src="hero.mp4" type="video/mp4" />
+      <img src="hero-poster.png" alt="Background" />
     </video>
 
     <div class="overlay" aria-hidden="true"></div>
