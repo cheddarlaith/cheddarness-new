@@ -6,161 +6,60 @@
   <title>Photography — Cheddarness</title>
   <meta name="description" content="Photography by Cheddarness" />
 
-  <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Kimura font -->
-  <link rel="preload" href="fonts/Kimura.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Kimura.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    /* --- Resets / base --- */
-    * { box-sizing: border-box; }
-    :root{ --brand: rgb(0,95,247); }
-    html, body { height: 100%; }
-    body{
-      margin:0; background:#000; color:#fff;
-      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    @font-face {
-      font-family: "Kimura";
-      src: url("fonts/Kimura.woff2") format("woff2");
-      font-style: normal; font-weight: 400; font-display: swap;
-    }
+    @font-face{font-family:"Kimura";src:url("Kimura.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+    :root{--brand:rgb(0,95,247)}
+    body{margin:0;background:#000;color:#fff}
 
-    /* Header */
-    .site-header{
-      position: sticky; top:0; z-index:10;
-      background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
-      display:flex; align-items:center; justify-content:space-between;
-      padding:.9rem 1.2rem; border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .brand-text{
-      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-weight:900; letter-spacing:.02em; text-decoration:none; color:#fff; font-size:1.25rem;
-    }
-    .site-nav ul{ list-style:none; display:flex; gap:1rem; margin:0; padding:0; }
-    .site-nav a{ color:#fff; text-decoration:none; opacity:.9; }
-    .site-nav a[aria-current="page"]{ color:var(--brand); opacity:1; }
+    header.site-header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand-text{font-family:"Kimura",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:900;color:#fff;text-decoration:none;font-size:1.25rem}
+    .site-nav ul{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
+    .site-nav a{color:#fff;text-decoration:none;opacity:.9}
+    .site-nav a[aria-current="page"]{color:var(--brand);opacity:1}
 
-    /* Page container */
-    .wrap{
-      width:min(1200px,94vw); margin:0 auto;
-      padding-top: calc(var(--header-h,64px) + 2.2rem);
-      padding-bottom:0;
+    main{width:min(1100px,94vw);margin:0 auto;padding:calc(64px + 2.5rem) 0 2rem}
+    h1.page-title{
+      text-align:center;margin:0 0 1rem;letter-spacing:.02em;
+      font-family:"Kimura",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;
+      font-size:clamp(2.2rem,6vw,3rem);
+      background:linear-gradient(90deg,#ffffff 0%,var(--brand) 35%,#ffffff 70%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 4s linear infinite;
     }
+    @keyframes sheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
-    /* Title with blue sheen */
-    .page-title{
-      text-align:center; margin:0 0 1.2rem; letter-spacing:.02em;
-      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-weight:800; font-size:clamp(2.2rem,6vw,3rem);
-      background: linear-gradient(90deg,#fff 0%,var(--brand) 35%,#fff 70%);
-      background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
-      animation: sheen 4s linear infinite;
+    /* Carousel */
+    .carousel{position:relative;display:grid;place-items:center}
+    .frame{position:relative;max-width:100%;max-height:72vh}
+    .frame img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;margin:0 auto;object-fit:contain;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+    .caption{
+      position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:1rem;
+      background:rgba(0,0,0,.0); color:#fff; opacity:0; transition:opacity .2s ease, background .2s ease; border-radius:12px;
     }
-    @keyframes sheen{ 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+    .frame:hover .caption{ opacity:1; background:rgba(0,0,0,.45) }
+    .caption h3{ margin:0; font-family:"Kimura"; font-weight:800; font-size:clamp(1.1rem,2.2vw,1.4rem) }
 
-    /* --- Carousel --- */
-    .carousel{
-      position:relative; overflow:hidden; background:#0b0b0b;
-      border-radius:14px; border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 16px 36px rgba(0,0,0,.28);
-      user-select:none; touch-action:pan-y;
+    /* Arrows */
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%;
+      display:grid; place-items:center; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+      cursor:pointer; transition:background .2s ease, transform .12s ease; user-select:none;
     }
+    .arrow:hover{ background:rgba(255,255,255,.14); transform:translateY(-50%) scale(1.05) }
+    .arrow:active{ transform:translateY(-50%) scale(.98) }
+    .prev{ left:-16px }  /* slightly outside image */
+    .next{ right:-16px }
+    .arrow svg{ width:22px; height:22px; fill:#fff }
 
-    /* The moving strip */
-    .track{
-      display:flex;
-      list-style:none; margin:0; padding:0; /* prevent drift */
-      transition: transform .45s cubic-bezier(.2,.7,.2,1);
-      will-change: transform;
-    }
+    /* Progress dashes (outside image, not overlapping) */
+    .progress{ display:flex; gap:6px; justify-content:center; align-items:center; margin:14px 0 0 }
+    .dash{ width:18px; height:2px; background:#666; opacity:.55 }
+    .dash.active{ background:#fff; opacity:1 }
 
-    /* Each slide is EXACTLY the viewport width of the carousel */
-    .slide{
-      position:relative;
-      flex: 0 0 100%;       /* one slide = 100% of carousel viewport */
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      display:flex; align-items:center; justify-content:center;
-      background:#000;
-      overflow:hidden;
-    }
-    .slide img{
-      width:100%; height:100%; object-fit:contain; background:#000; display:block;
-      transition: filter .35s ease, transform .4s ease;
-    }
-
-    /* Overlay centered text (per-slide only) */
-    .overlay{
-      position:absolute; inset:0; z-index:2;
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding: 1rem;
-      opacity:0; background: rgba(0,0,0,0);
-      transition: opacity .25s ease, background .25s ease;
-      pointer-events: none;
-    }
-    .overlay h3{
-      margin:0;
-      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-weight:800; letter-spacing:.01em;
-      font-size: clamp(1.2rem, 3.8vw, 2.2rem);
-      line-height:1.1;
-      text-shadow: 0 2px 14px rgba(0,0,0,.7);
-    }
-    .slide:hover .overlay,
-    .slide:focus-within .overlay,
-    .slide.show-info .overlay{
-      opacity:1; background: rgba(0,0,0,.55);
-    }
-    .slide:hover img,
-    .slide:focus-within img,
-    .slide.show-info img{
-      filter:brightness(.75); transform:scale(1.02);
-    }
-
-    /* Controls */
-    .ctrl{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:42px; height:42px; display:grid; place-items:center;
-      border-radius:50%; background:rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.22); color:#fff; cursor:pointer;
-      transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
-      z-index:3;
-    }
-    .ctrl:hover{ transform:translateY(-50%) scale(1.04); background:rgba(0,0,0,.7); box-shadow:0 0 18px rgba(0,95,247,.32); }
-    .prev{ left:10px; }
-    .next{ right:10px; }
-    .ctrl svg{ width:20px; height:20px; }
-
-    /* --- Meta (below the image, never overlapping) --- */
-    .carousel-meta{
-      display:flex; align-items:center; justify-content:center; gap:14px;
-      margin: .9rem 0 2.2rem;   /* sits OUTSIDE the carousel */
-    }
-    .dashes{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
-    .dash{
-      width:22px; height:6px; border-radius:3px;
-      background:rgba(255,255,255,.35);
-      border:1px solid rgba(255,255,255,.22);
-      transition: transform .12s ease, background .2s ease, box-shadow .2s ease;
-    }
-    .dash[aria-current="true"]{
-      background:var(--brand); box-shadow:0 0 0 5px rgba(0,95,247,.18); transform:scale(1.1);
-    }
-    .fraction{
-      font-size:.95rem; color:#eaeaea; letter-spacing:.02em; background:rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.18); padding:.2rem .5rem; border-radius:999px;
-    }
-
-    /* Footer */
-    .site-footer{
-      width:min(1200px,94vw); margin:0 auto; padding:1.5rem 0 3rem;
-      color:#aaa; font-size:.95rem; text-align:center; border-top:1px solid rgba(255,255,255,.06);
-    }
+    footer.site-footer{width:min(1200px,94vw);margin:2rem auto 0;padding:1.5rem 0 3rem;color:#aaa;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+    @media (max-width:700px){ .prev{left:-8px} .next{right:-8px} }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="site-header" role="banner">
     <a href="index.html" class="brand-text" aria-label="Cheddarness home">Cheddarness</a>
     <nav class="site-nav" role="navigation" aria-label="Primary">
@@ -174,130 +73,22 @@
     </nav>
   </header>
 
-  <!-- Content -->
-  <main class="wrap" id="photography">
+  <main>
     <h1 class="page-title">Photography</h1>
 
-    <!-- Carousel viewport -->
-    <section class="carousel" id="carousel" aria-label="Photo carousel">
-      <ul class="track" id="track">
-        <!-- Slides -->
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Big Hat.jpg" alt="Big Hat" loading="lazy">
-          <div class="overlay"><h3>Big Hat</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Blue Ocean.jpg" alt="Blue Ocean" loading="lazy">
-          <div class="overlay"><h3>Blue Ocean</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Cordoba on Cordoba.jpg" alt="Cordoba on Cordoba" loading="lazy">
-          <div class="overlay"><h3>Cordoba on Cordoba</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Cy.jpg" alt="Cy" loading="lazy">
-          <div class="overlay"><h3>Cy</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/House in the forest.jpg" alt="House in the forest" loading="lazy">
-          <div class="overlay"><h3>House in the forest</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/OV.jpg" alt="OV" loading="lazy">
-          <div class="overlay"><h3>OV</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Overcst 1.jpg" alt="Overcst 1" loading="lazy">
-          <div class="overlay"><h3>Overcst 1</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Overcst Producing.jpg" alt="Overcst Producing" loading="lazy">
-          <div class="overlay"><h3>Overcst Producing</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Party.jpg" alt="Party" loading="lazy">
-          <div class="overlay"><h3>Party</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Pineapple hut.jpg" alt="Pineapple hut" loading="lazy">
-          <div class="overlay"><h3>Pineapple hut</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Red Flowers.jpg" alt="Red Flowers" loading="lazy">
-          <div class="overlay"><h3>Red Flowers</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Stroke Tower.jpg" alt="Stroke Tower" loading="lazy">
-          <div class="overlay"><h3>Stroke Tower</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Student Afternoon.jpg" alt="Student Afternoon" loading="lazy">
-          <div class="overlay"><h3>Student Afternoon</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/The Lagoon.jpg" alt="The Lagoon" loading="lazy">
-          <div class="overlay"><h3>The Lagoon</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Through the trees.jpg" alt="Through the trees" loading="lazy">
-          <div class="overlay"><h3>Through the trees</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Toronto buildings.jpg" alt="Toronto buildings" loading="lazy">
-          <div class="overlay"><h3>Toronto buildings</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Toronto Skyline 1.jpg" alt="Toronto Skyline 1" loading="lazy">
-          <div class="overlay"><h3>Toronto Skyline 1</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Toronto Skyline 2.jpg" alt="Toronto Skyline 2" loading="lazy">
-          <div class="overlay"><h3>Toronto Skyline 2</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Toronto skyline 3.jpg" alt="Toronto skyline 3" loading="lazy">
-          <div class="overlay"><h3>Toronto skyline 3</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Tree leaves.jpg" alt="Tree leaves" loading="lazy">
-          <div class="overlay"><h3>Tree leaves</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Trees and lagoon.jpg" alt="Trees and lagoon" loading="lazy">
-          <div class="overlay"><h3>Trees and lagoon</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/UCSB 1.jpg" alt="UCSB 1" loading="lazy">
-          <div class="overlay"><h3>UCSB 1</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/UCSB 2.jpg" alt="UCSB 2" loading="lazy">
-          <div class="overlay"><h3>UCSB 2</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Wave Crash.jpg" alt="Wave Crash" loading="lazy">
-          <div class="overlay"><h3>Wave Crash</h3></div>
-        </li>
-        <li class="slide" tabindex="0">
-          <img src="assets/photos/Zip up.jpg" alt="Zip up" loading="lazy">
-          <div class="overlay"><h3>Zip up</h3></div>
-        </li>
-      </ul>
-
-      <!-- Controls -->
-      <button class="ctrl prev" id="prev" aria-label="Previous photo">
-        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-      </button>
-      <button class="ctrl next" id="next" aria-label="Next photo">
-        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 7.41 13.17 12 8.59 16.59 10 18l6-6-6-6z"/></svg>
-      </button>
+    <section class="carousel" aria-label="Photo carousel">
+      <div class="frame">
+        <img id="photo" src="" alt="">
+        <div class="caption"><h3 id="caption"></h3></div>
+        <button class="arrow prev" id="prev" aria-label="Previous photo" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="arrow next" id="next" aria-label="Next photo" title="Next">
+          <svg viewBox="0 0 24 24" style="transform:scaleX(-1)"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+      </div>
+      <div class="progress" id="progress" aria-hidden="true"></div>
     </section>
-
-    <!-- Progress UI BELOW the carousel -->
-    <div class="carousel-meta" aria-hidden="true">
-      <div class="dashes" id="dashes"></div>
-      <div class="fraction"><span id="cur">1</span>/<span id="tot">1</span></div>
-    </div>
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -305,89 +96,55 @@
   </footer>
 
   <script>
-    // Footer year
-    const y = document.getElementById('year');
-    if (y) y.textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- Robust, no-drift carousel ---
-    const carousel = document.getElementById('carousel');
-    const track = document.getElementById('track');
-    const slides = Array.from(track.querySelectorAll('.slide'));
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
-    const dashesWrap = document.getElementById('dashes');
-    const curEl = document.getElementById('cur');
-    const totEl = document.getElementById('tot');
+    // All image files live in the ROOT:
+    const photos = [
+      "Big Hat.jpg","Blue Ocean.jpg","Cordoba on Cordoba.jpg","Cy.jpg","House in the forest.jpg",
+      "OV.jpg","Overcst 1.jpg","Overcst Producing.jpg","Party.jpg","Pineapple hut.jpg","Red Flowers.jpg",
+      "Stroke Tower.jpg","Student Afternoon.jpg","The Lagoon.jpg","Through the trees.jpg","Toronto buildings.jpg",
+      "Toronto Skyline 1.jpg","Toronto Skyline 2.jpg","Toronto skyline 3.jpg","Tree leaves.jpg",
+      "Trees and lagoon.jpg","UCSB 1.jpg","UCSB 2.jpg","Wave Crash.jpg","Zip up.jpg"
+    ];
 
-    let index = 0;
-    const total = slides.length;
-    let slideW = carousel.clientWidth; // measured pixel width of viewport
-    totEl.textContent = total;
+    const img = document.getElementById('photo');
+    const cap = document.getElementById('caption');
+    const progress = document.getElementById('progress');
 
-    // Build dashes
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'dash';
-      d.type = 'button';
-      d.setAttribute('aria-label', `Go to slide ${i+1}`);
-      d.addEventListener('click', () => go(i));
-      dashesWrap.appendChild(d);
+    // Build progress dashes
+    const dashes = photos.map((_,i)=>{
+      const el = document.createElement('span');
+      el.className = 'dash' + (i===0?' active':'');
+      progress.appendChild(el);
+      return el;
     });
 
-    function measure(){
-      // Recalculate viewport width (prevents cumulative rounding)
-      slideW = carousel.clientWidth;
+    let i = 0;
+    function titleFromFilename(name){
+      return name.replace(/\.[^.]+$/,''); // drop extension
+    }
+    function show(idx){
+      i = (idx + photos.length) % photos.length;
+      const src = photos[i];
+      img.src = src;
+      img.alt = titleFromFilename(src);
+      cap.textContent = titleFromFilename(src);
+      dashes.forEach((d,j)=>d.classList.toggle('active', j===i));
+      // make sure we start at top if image taller than viewport
+      document.querySelector('.frame').scrollTop = 0;
     }
 
-    function update(noAnim=false){
-      if(noAnim){ track.style.transition = 'none'; }
-      track.style.transform = `translate3d(${-index * slideW}px, 0, 0)`;
-      curEl.textContent = index + 1;
-      dashesWrap.querySelectorAll('.dash').forEach((dash, i) => {
-        dash.setAttribute('aria-current', i===index ? 'true' : 'false');
-      });
-      slides.forEach((s, i) => s.setAttribute('aria-hidden', i===index ? 'false' : 'true'));
-      if(noAnim){
-        // Force reflow then restore transition
-        // (prevents visible jump on first layout/resize)
-        requestAnimationFrame(()=>{ track.style.transition = ''; });
-      }
-    }
+    document.getElementById('prev').addEventListener('click', ()=>show(i-1));
+    document.getElementById('next').addEventListener('click', ()=>show(i+1));
 
-    function go(i){
-      index = (i + total) % total;
-      update();
-    }
+    // Hover caption handled by CSS; show first image now
+    show(0);
 
-    prev.addEventListener('click', () => go(index-1));
-    next.addEventListener('click', () => go(index+1));
-
-    // Keyboard
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') go(index-1);
-      if (e.key === 'ArrowRight') go(index+1);
+    // Optional: keyboard navigation
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowLeft') show(i-1);
+      if(e.key==='ArrowRight') show(i+1);
     });
-
-    // Swipe
-    let startX = null;
-    track.addEventListener('pointerdown', (e) => { startX = e.clientX; track.setPointerCapture(e.pointerId); });
-    track.addEventListener('pointerup', (e) => {
-      if(startX===null) return;
-      const dx = e.clientX - startX;
-      if (dx > 40) go(index-1);
-      if (dx < -40) go(index+1);
-      startX = null;
-    });
-
-    // Keep alignment on resize
-    window.addEventListener('resize', () => {
-      measure();
-      update(true); // snap without animation
-    });
-
-    // Init
-    measure();
-    update(true);
   </script>
 </body>
 </html>
