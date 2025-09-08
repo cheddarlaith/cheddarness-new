@@ -6,167 +6,49 @@
   <title>Contact — Cheddarness</title>
   <meta name="description" content="Cheddarness — Contact" />
 
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
-
+  <link rel="preload" href="Kimura.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    @font-face {
-      font-family: "Kimura";
-      src: url("fonts/Kimura.woff2") format("woff2");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
+    @font-face{font-family:"Kimura";src:url("Kimura.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+    :root{--brand-font:"Kimura",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--gap:14px;--radius:12px;--field-bg:rgba(255,255,255,.03);--field-bd:rgba(255,255,255,.14);--field-bd-focus:rgba(255,255,255,.35);--text-dim:#cfcfcf}
+    body{margin:0;background:#000;color:#fff}
 
-    :root {
-      --brand-font: "Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --gap: 14px;
-      --radius: 12px;
-      --field-bg: rgba(255,255,255,.03);
-      --field-bd: rgba(255,255,255,.14);
-      --field-bd-focus: rgba(255,255,255,.35);
-      --text-dim: #cfcfcf;
-    }
+    header.site-header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand-text{font-family:var(--brand-font);font-size:1.25rem;font-weight:800;letter-spacing:.02em;color:#fff;text-decoration:none}
+    .site-nav ul{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
+    .site-nav a{color:#fff;text-decoration:none;opacity:.9}
+    .site-nav a[aria-current="page"]{opacity:1;color:#0b5ff7}
 
-    .brand-text {
-      font-family: var(--brand-font);
-      font-size: clamp(1.25rem, 2.4vw, 1.8rem);
-      font-weight: 800;
-      letter-spacing: .02em;
-      color: var(--fg, #fff);
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    .contact{padding-top:calc(64px + 2.5rem);padding-bottom:3rem;display:grid;place-items:start center}
+    .page-title{
+      text-align:center;margin:0 0 2rem;letter-spacing:.02em;font-family:"Kimura",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:clamp(2.2rem,6vw,3rem);
+      background:linear-gradient(90deg,#ffffff 0%,rgb(0,95,247) 35%,#ffffff 70%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 4s linear infinite;
     }
+    .page-sub{text-align:center;color:var(--text-dim);margin:-1rem 0 1.5rem}
+    @keyframes sheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
-    .contact {
-      padding-top: calc(var(--header-h, 64px) + 2.5rem);
-      padding-bottom: 3rem;
-      display: grid;
-      place-items: start center;
-    }
+    .form-wrap{width:min(760px,92vw);border-radius:16px;padding:clamp(1rem,4vw,1.25rem);background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 28px rgba(0,0,0,.28)}
+    form{display:grid;gap:var(--gap)}
+    .row{display:grid;gap:var(--gap)}
+    .row.split-2{grid-template-columns:1fr 1fr;align-items:start}
+    .field{display:flex;flex-direction:column}
+    label{font-size:.95rem;margin:0 0 .35rem;color:#fff;opacity:.95}
+    .req{opacity:.8;margin-left:.25rem}
+    input[type="text"],input[type="email"],textarea{width:100%;color:#fff;background:var(--field-bg);border:1px solid var(--field-bd);border-radius:var(--radius);padding:.85rem 1rem;transition:border-color .15s ease, background .15s ease, box-shadow .15s ease}
+    textarea{min-height:160px;resize:vertical}
+    input::placeholder,textarea::placeholder{color:#bdbdbd;opacity:.7}
+    input:focus,textarea:focus{border-color:var(--field-bd-focus);background:rgba(255,255,255,.04);box-shadow:0 0 0 3px rgba(255,255,255,.06);outline:none}
+    .submit{display:inline-flex;justify-content:center;padding:.85rem 1.25rem;border-radius:999px;border:1px solid #fff;background:#fff;color:#000;font-family:var(--brand-font);font-weight:800;cursor:pointer;transition:transform .12s ease, box-shadow .2s ease}
+    .submit:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,0,0,.45)}
+    .thankyou{display:none;margin-top:1rem;color:#fff;font-weight:700;text-align:center}
+    .thankyou.show{display:block}
 
-    .page-title {
-      font-family: var(--brand-font);
-      font-weight: 800;
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
-      text-align: center;
-      margin: 0 0 .35rem;
-    }
-    .page-sub {
-      text-align: center;
-      color: var(--text-dim);
-      margin: 0 0 1.5rem;
-    }
-
-    .form-wrap {
-      width: min(760px, 92vw);
-      border-radius: 16px;
-      padding: clamp(1rem, 4vw, 1.25rem);
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    }
-
-    form {
-      display: grid;
-      gap: var(--gap);
-    }
-
-    .row {
-      display: grid;
-      gap: var(--gap);
-    }
-    .row.split-2 {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      font-size: .95rem;
-      margin: 0 0 .35rem;
-      color: #fff;
-      opacity: .95;
-    }
-    .req { opacity: .8; margin-left: .25rem; }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      color: #fff;
-      background: var(--field-bg);
-      border: 1px solid var(--field-bd);
-      border-radius: var(--radius);
-      padding: .85rem 1rem;
-      transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
-    }
-    textarea { min-height: 160px; resize: vertical; }
-
-    input::placeholder, textarea::placeholder { color: #bdbdbd; opacity: .7; }
-
-    input:focus, textarea:focus {
-      border-color: var(--field-bd-focus);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.06);
-      outline: none;
-    }
-
-    .submit {
-      display: inline-flex;
-      justify-content: center;
-      padding: .85rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid #fff;
-      background: #fff;
-      color: #000;
-      font-family: var(--brand-font);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .12s ease, box-shadow .2s ease;
-    }
-    .submit:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0,0,0,.45); }
-
-    .thankyou {
-      display: none;
-      margin-top: 1rem;
-      color: #fff;
-      font-weight: 700;
-      text-align: center;
-    }
-    .thankyou.show { display: block; }
-  /* Animated sheen effect for page titles */
-    .page-title {
-      text-align:center;
-      margin:0 0 2rem;
-      letter-spacing:.02em;
-      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-weight:800;
-      font-size: clamp(2.2rem, 6vw, 3rem);
-      background: linear-gradient(90deg, #ffffff 0%, rgb(0,95,247) 35%, #ffffff 70%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: sheen 4s linear infinite;
-    }
-
-    @keyframes sheen {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-  
+    footer.site-footer{width:min(1200px,94vw);margin:2rem auto 0;padding:1.5rem 0 3rem;color:#aaa;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+    @media (max-width:700px){ .row.split-2{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="site-brand">
-      <a href="index.html" class="brand-link brand-text">Cheddarness</a>
-    </div>
+    <a href="index.html" class="brand-text">Cheddarness</a>
     <nav class="site-nav">
       <ul>
         <li><a href="photography.html">Photography</a></li>
@@ -178,7 +60,7 @@
     </nav>
   </header>
 
-  <main class="contact container" id="contact">
+  <main class="contact" id="contact">
     <div>
       <h1 class="page-title">Contact</h1>
       <p class="page-sub">Business Inquiries</p>
@@ -223,15 +105,9 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const form = document.getElementById('contactForm');
     const thanks = document.getElementById('thanks');
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      form.reset();
-      thanks.classList.add('show');
-    });
+    form.addEventListener('submit', e => { e.preventDefault(); form.reset(); thanks.classList.add('show'); });
   </script>
 </body>
 </html>
