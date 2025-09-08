@@ -6,113 +6,47 @@
   <title>About — Cheddarness</title>
   <meta name="description" content="Who is Cheddarness?" />
 
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
+  <!-- Everything is in ROOT -->
+  <link rel="preload" href="Kimura.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Kimura font (adjust path if needed) -->
-  <link rel="preload" href="fonts/Kimura.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    @font-face {
-      font-family: "Kimura";
-      src: url("fonts/Kimura.woff2") format("woff2");
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
+    @font-face{
+      font-family:"Kimura"; src:url("Kimura.woff2") format("woff2");
+      font-style:normal; font-weight:400; font-display:swap;
     }
-    :root { --brand-font: "Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    :root{ --brand-font:"Kimura",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+    body{margin:0;background:#000;color:#fff}
 
-    /* Page width */
-    .about {
-      width: min(1200px, 94vw);
-      margin: 0 auto;
-      padding-top: calc(var(--header-h, 64px) + 2.5rem);
-      padding-bottom: 3.5rem;
-    }
+    header.site-header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.75);
+      backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;
+      padding:.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand-link{font-family:var(--brand-font);font-weight:900;color:#fff;text-decoration:none;font-size:1.25rem}
+    .site-nav ul{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
+    .site-nav a{color:#fff;text-decoration:none;opacity:.9}
+    .site-nav a[aria-current="page"]{opacity:1;color:#0b5ff7}
 
-    /* Equal-width columns; equal height */
-    .about-wrap{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(20px, 4vw, 48px);
-      align-items: stretch; /* same height as image */
+    .about{width:min(1200px,94vw);margin:0 auto;padding:calc(64px + 2.5rem) 0 3.5rem}
+    .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);align-items:stretch}
+    .portrait{margin:0;border-radius:14px;overflow:hidden}
+    .portrait img{display:block;width:100%;height:auto;object-fit:cover}
+    .copy{display:flex;border-radius:14px}
+    .copy-inner{padding:clamp(16px,2.2vw,28px);display:flex;flex-direction:column;gap:1.1rem;width:100%}
+    .page-title{
+      text-align:left;margin:0 0 1rem;letter-spacing:.02em;font-family:var(--brand-font);font-weight:800;
+      font-size:clamp(2.2rem,5.6vw,3.2rem);line-height:1.05;
+      background:linear-gradient(90deg,#ffffff 0%, rgb(0,95,247) 35%, #ffffff 70%);
+      background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 4s linear infinite;
     }
-
-    /* Left: image */
-    .portrait{ margin:0; border-radius:14px; overflow:hidden; }
-    .portrait img{
-      display:block; width:100%; height:auto; object-fit:cover;
-      box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    }
-
-    /* Right: text — invisible border/background, same height */
-    .copy{
-      height:100%;
-      border-radius:14px;
-      border:1px solid transparent;   /* invisible */
-      background: transparent;         /* no card */
-      box-shadow:none;                 /* no shadow */
-      overflow:auto;                   /* keeps equal height without overflow */
-      display:flex;
-    }
-    .copy-inner{
-      padding: clamp(16px, 2.2vw, 28px);
-      display:flex; flex-direction:column; gap: 1.1rem; width:100%;
-    }
-
-    .about-title{
-      font-family: var(--brand-font);
-      font-weight: 800; letter-spacing:.02em; line-height:1.05;
-      font-size: clamp(2.2rem, 5.6vw, 3.2rem);
-      margin:0; /* aligns with top of image */
-    }
-
-    /* Larger body text as requested */
-    .copy p{
-      margin:0;
-      font-size: clamp(1.08rem, 1.25vw, 1.22rem); /* ~17–19.5px */
-      line-height: 1.68;
-      color:#eaeaea;
-      max-width:none; /* full column width (same as title) */
-    }
-
-    @media (max-width: 900px){
-      .about-wrap{ grid-template-columns: 1fr; }
-      .copy{ height:auto; }
-    }
-    /* Animated sheen effect for page titles */
-    .page-title {
-      text-align:center;
-      margin:0 0 2rem;
-      letter-spacing:.02em;
-      font-family:"Kimura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-weight:800;
-      font-size: clamp(2.2rem, 6vw, 3rem);
-      background: linear-gradient(90deg, #ffffff 0%, rgb(0,95,247) 35%, #ffffff 70%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: sheen 4s linear infinite;
-    }
-
-@keyframes sheen {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-   
-    
+    .copy p{margin:0;font-size:clamp(1.08rem,1.25vw,1.22rem);line-height:1.68;color:#eaeaea;max-width:none}
+    @keyframes sheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+    @media (max-width:900px){ .about-wrap{grid-template-columns:1fr} }
+    footer.site-footer{width:min(1200px,94vw);margin:2rem auto 0;padding:1.5rem 0 3rem;color:#aaa;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
   </style>
 </head>
 <body>
   <header class="site-header" role="banner">
-    <div class="site-brand">
-      <a href="index.html" class="brand-link brand-text" aria-label="Cheddarness home">Cheddarness</a>
-    </div>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
-      <span class="nav-toggle-box"><span class="nav-toggle-inner"></span></span>
-    </button>
-    <nav id="site-nav" class="site-nav" role="navigation" aria-label="Primary">
+    <a href="index.html" class="brand-link" aria-label="Cheddarness home">Cheddarness</a>
+    <nav class="site-nav" role="navigation">
       <ul>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="music.html">Music</a></li>
@@ -125,12 +59,11 @@
 
   <main class="about" id="about">
     <div class="about-wrap">
-      <!-- LEFT: image (update path to your file) -->
       <figure class="portrait">
-        <img src="assets/me.png" alt="Cheddarness portrait">
+        <!-- portrait is in ROOT -->
+        <img src="me.png" alt="Cheddarness portrait">
       </figure>
 
-      <!-- RIGHT: text (same width & height as image; no visible borders) -->
       <section class="copy">
         <div class="copy-inner">
           <h1 class="page-title">Who is Cheddarness?</h1>
@@ -148,5 +81,9 @@
   <footer class="site-footer" role="contentinfo">
     <p>&copy; <span id="year"></span> Cheddarness</p>
   </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
